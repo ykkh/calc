@@ -10,8 +10,8 @@ ConstraintValidator<ArithmeticOperatorConstraint, String> {
 	public boolean isValid(String value, ConstraintValidatorContext context) {
 		boolean result = false;
 		
-		if(value.equalsIgnoreCase("add") || value.equalsIgnoreCase("sub") 
-				||value.equalsIgnoreCase("mul")|| value.equalsIgnoreCase("div")) {
+		if(value.equalsIgnoreCase(CalcAppConstants.ADDITION) || value.equalsIgnoreCase(CalcAppConstants.SUBSTRACTION) 
+				||value.equalsIgnoreCase(CalcAppConstants.MULTIPLICATION)|| value.equalsIgnoreCase(CalcAppConstants.DIVISION)) {
 			result = true;
 		}
 		
