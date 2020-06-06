@@ -1,0 +1,6 @@
+#DataSource Configuration
+
+server:
+  servlet:
+    contextPath: /ykkh-services
+    port: 8080
