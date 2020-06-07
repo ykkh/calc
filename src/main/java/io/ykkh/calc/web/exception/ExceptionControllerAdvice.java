@@ -1,4 +1,4 @@
-package io.ykkh.calc.web;
+package io.ykkh.calc.web.exception;
 
 import java.io.StringWriter;
 import java.util.HashMap;
@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
+
+import io.ykkh.calc.web.ResponseInfo;
 
 
 
