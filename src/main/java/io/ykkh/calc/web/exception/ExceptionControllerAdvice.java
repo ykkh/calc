@@ -28,22 +28,21 @@ public class ExceptionControllerAdvice {
 	
 	Logger logger = LoggerFactory.getLogger(this.getClass());
 	
+
+	/*
+	 * @ResponseStatus(HttpStatus.BAD_REQUEST)
+	 * 
+	 * @ExceptionHandler(MethodArgumentNotValidException.class) public ResponseInfo
+	 * handleValidationExceptions( MethodArgumentNotValidException ex) { Map<String,
+	 * String> errors = new HashMap<>();
+	 * ex.getBindingResult().getAllErrors().forEach((error) -> { String fieldName =
+	 * ((FieldError) error).getField(); String errorMessage =
+	 * error.getDefaultMessage(); errors.put(fieldName, errorMessage); }); return
+	 * new ResponseInfo(HttpStatus.BAD_REQUEST, ex.getMessage(), errors); }
+	 */
 	
-	@ResponseStatus(HttpStatus.BAD_REQUEST)
-	@ExceptionHandler(MethodArgumentNotValidException.class)
-	public ResponseInfo handleValidationExceptions(
-	  MethodArgumentNotValidException ex) {
-	    Map<String, String> errors = new HashMap<>();
-	    ex.getBindingResult().getAllErrors().forEach((error) -> {
-	        String fieldName = ((FieldError) error).getField();
-	        String errorMessage = error.getDefaultMessage();
-	        errors.put(fieldName, errorMessage);
-	    });
-	    return new ResponseInfo(HttpStatus.BAD_REQUEST, ex.getMessage(), errors);
-	}
-	
-	
-	
+
+
 	@ExceptionHandler({ServletRequestBindingException.class, MethodArgumentTypeMismatchException.class, ConstraintViolationException.class, ArithmeticException.class})
 	@ResponseStatus(value = HttpStatus.BAD_REQUEST)
 	@ResponseBody
@@ -57,5 +56,19 @@ public class ExceptionControllerAdvice {
 		return new ResponseInfo(HttpStatus.BAD_REQUEST, errorMessage, null);
 	}
 
+	@ExceptionHandler({ MethodArgumentNotValidException.class})
+	@ResponseStatus(value = HttpStatus.BAD_REQUEST)
+	@ResponseBody
+	public ResponseInfo handleBadRequestValidation
+	(HttpServletRequest req, MethodArgumentNotValidException ex) {
+		
+		 Map<String, String> errors = new HashMap<>();
+		    ex.getBindingResult().getAllErrors().forEach((error) -> {
+		        String fieldName = ((FieldError) error).getField();
+		        String errorMessage = error.getDefaultMessage();
+		        errors.put(fieldName, errorMessage);
+		    });
+		return new ResponseInfo(HttpStatus.BAD_REQUEST, errors.toString(), null);
+	}
 
 	}

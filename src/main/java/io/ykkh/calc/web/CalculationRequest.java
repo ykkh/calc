@@ -1,5 +1,7 @@
 package io.ykkh.calc.web;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
 import io.swagger.annotations.ApiModelProperty;
@@ -8,14 +10,17 @@ import io.ykkh.calc.common.ArithmeticOperatorConstraint;
 public class CalculationRequest {
 	@Pattern(regexp = "^[0-9]\\d*(\\.\\d+)?$", message = "Param 'a' must be number.")
 	@ApiModelProperty(value = "First Number", example = "1", allowEmptyValue = false, required = true, dataType = "double")
+	@NotBlank @NotNull
 	private String a;
 	
 	@Pattern(regexp = "^[0-9]\\d*(\\.\\d+)?$", message = "Param 'b' must be number.")
 	@ApiModelProperty(value = "Second Number", example = "1", allowEmptyValue = false, required = true, dataType = "double")
+	@NotBlank @NotNull
 	private String b;
 
 	@ArithmeticOperatorConstraint
 	@ApiModelProperty(value = "Operator", example = "add", allowableValues = "add, mul, div, sub", allowEmptyValue = false, required = true, dataType = "string")
+	@NotBlank @NotNull
 	private String op;
 
 	public CalculationRequest(String a, String b, String op) {

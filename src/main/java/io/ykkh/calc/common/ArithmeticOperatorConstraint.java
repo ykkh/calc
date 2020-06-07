@@ -11,7 +11,7 @@ import javax.validation.Payload;
 
 @Documented
 @Constraint(validatedBy = ArithmeticOperatorValidator.class)
-@Target( { ElementType.METHOD, ElementType.FIELD, ElementType.PARAMETER  })
+@Target( { ElementType.METHOD, ElementType.FIELD, ElementType.CONSTRUCTOR, ElementType.PARAMETER })
 @Retention(RetentionPolicy.RUNTIME)
 public @interface ArithmeticOperatorConstraint {
     String message() default "Invalid Operator";
