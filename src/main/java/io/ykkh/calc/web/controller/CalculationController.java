@@ -66,7 +66,7 @@ public class CalculationController {
 		return response;
 	}
 	
-	@GetMapping(path = "{a}/{b}/{op}")
+	@GetMapping(path = "/{a}/{b}/{op}")
 	public ResponseInfo calculateByGetPath(
 			@PathVariable(name = "a") @Pattern(regexp = "^[0-9]\\d*(\\.\\d+)?$", message = "Param 'a' must be number.") @ApiParam(value = "First Number", example = "1", allowEmptyValue = false, required = true, type = "double") String a,
 			@PathVariable(name = "b") @Pattern(regexp = "^[0-9]\\d*(\\.\\d+)?$", message = "Param 'b' must be number.") @ApiParam(value = "Second Number", example = "1", allowEmptyValue = false, required = true, type = "double") String b,
