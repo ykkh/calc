@@ -13,6 +13,11 @@ public class ArithmeticOperatorFactory {
         operationMap.put(AppConstants.DIVISION, new Division());
         operationMap.put(AppConstants.SUBSTRACTION, new Subtraction());
         operationMap.put(AppConstants.MULTIPLICATION, new Multiplication());
+        
+        operationMap.put(AppConstants.ADDITION_CHAR, new Addition());
+        operationMap.put(AppConstants.DIVISION_CHAR, new Division());
+        operationMap.put(AppConstants.SUBSTRACTION_CHAR, new Subtraction());
+        operationMap.put(AppConstants.MULTIPLICATION_CHAR, new Multiplication());
     }
  
     public static Optional<ArithmeticOperation> getOperation(String operator) {

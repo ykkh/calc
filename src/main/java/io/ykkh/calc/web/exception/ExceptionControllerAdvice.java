@@ -24,8 +24,6 @@ import io.ykkh.calc.web.ResponseInfo;
 public class ExceptionControllerAdvice {
 	
 	
-	
-
 
 
 	@ExceptionHandler({ServletRequestBindingException.class, MethodArgumentTypeMismatchException.class, ConstraintViolationException.class, ArithmeticException.class})

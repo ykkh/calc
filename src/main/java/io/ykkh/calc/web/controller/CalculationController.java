@@ -18,9 +18,11 @@ import org.springframework.web.bind.annotation.RestController;
 import io.swagger.annotations.ApiParam;
 import io.ykkh.calc.common.AppConstants;
 import io.ykkh.calc.common.ArithmeticOperatorConstraint;
+import io.ykkh.calc.common.ExpressionSegmentConstraint;
 import io.ykkh.calc.service.CalculationServiceFactory;
 import io.ykkh.calc.web.CalculationRequest;
 import io.ykkh.calc.web.CalculationResult;
+import io.ykkh.calc.web.ExpressionRequest;
 import io.ykkh.calc.web.ResponseInfo;
 
 @RestController
@@ -39,7 +41,7 @@ public class CalculationController {
 			@RequestParam(name = "op") @ArithmeticOperatorConstraint @ApiParam(value = "Operator", example = "add", allowableValues = "add, mul, div, sub", allowEmptyValue = false, required = true, type = "string") String op) {
 
 		ResponseInfo response = new ResponseInfo();
-		double result = calcService.calculate(Double.parseDouble(a), Double.parseDouble(b), op);
+		double result = calcService.calculate(op, Double.parseDouble(b), Double.parseDouble(a));
 		CalculationResult calcResult = new CalculationResult(Double.parseDouble(a), Double.parseDouble(b), op, result);
 
 		response.setData(calcResult);
@@ -56,13 +58,24 @@ public class CalculationController {
 		double a = Double.parseDouble(request.getA());
 		double b = Double.parseDouble(request.getB());
 
-		double result = calcService.calculate(a, b, request.getOp());
+		double result = calcService.calculate(request.getOp(), b, a);
 		CalculationResult calcResult = new CalculationResult(a, b, request.getOp(), result);
 
 		response.setData(calcResult);
 		response.setMessage("Calculation Result");
 		response.setStatus(HttpStatus.OK);
 
+		return response;
+	}
+	
+	
+	@PostMapping(path = "/expressions", consumes = "application/json")
+	public ResponseInfo calculatePostJsonExpr(@Valid @RequestBody @ExpressionSegmentConstraint ExpressionRequest request) {
+
+		double result = calcService.calculate(request.getExpressionSegments());
+		ResponseInfo response = new ResponseInfo();
+		response.setData(result);
+		response.setStatus(HttpStatus.OK);
 		return response;
 	}
 	
@@ -73,7 +86,7 @@ public class CalculationController {
 			@PathVariable(name = "op") @ArithmeticOperatorConstraint @ApiParam(value = "Operator", example = "add", allowableValues = "add, mul, div, sub", allowEmptyValue = false, required = true, type = "string") String op) {
 
 		ResponseInfo response = new ResponseInfo();
-		double result = calcService.calculate(Double.parseDouble(a), Double.parseDouble(b), op);
+		double result = calcService.calculate(op, Double.parseDouble(b), Double.parseDouble(a));
 		CalculationResult calcResult = new CalculationResult(Double.parseDouble(a), Double.parseDouble(b), op, result);
 
 		response.setData(calcResult);

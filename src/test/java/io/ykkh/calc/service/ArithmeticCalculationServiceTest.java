@@ -9,7 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
 
+
 import io.ykkh.calc.common.AppConstants;
+import io.ykkh.calc.common.Utils;
 
 @SpringBootTest
 public class ArithmeticCalculationServiceTest {
@@ -30,26 +32,26 @@ public class ArithmeticCalculationServiceTest {
 
 	@Test
 	public void testAddition() {
-		result = calcService.calculate(a, b, AppConstants.ADDITION);
+		result = calcService.calculate(AppConstants.ADDITION, b, a);
 		assertEquals(new Double(a), new Double(result));
 	}
 
 	@Test
 	public void testSubtraction() {
-		result = calcService.calculate(a, b, AppConstants.SUBSTRACTION);
+		result = calcService.calculate(AppConstants.SUBSTRACTION, b, a);
 		assertEquals(new Double(a), new Double(result));
 	}
 
 	@Test
 	public void testMultiplication() {
-		result = calcService.calculate(a, b, AppConstants.MULTIPLICATION);
+		result = calcService.calculate(AppConstants.MULTIPLICATION, b, a);
 		assertEquals(new Double(b), new Double(result));
 	}
 
 	@Test
 	public void testDivisionException() {
 		assertThrows(ArithmeticException.class, () -> {
-			calcService.calculate(a, b,  AppConstants.DIVISION);
+			calcService.calculate(AppConstants.DIVISION, b,  a);
 		});
 	}
 	
@@ -57,7 +59,18 @@ public class ArithmeticCalculationServiceTest {
 	public void testDivision() {
 		b = 2;
 		double expected_result = 5;
-		result = calcService.calculate(a, b, AppConstants.DIVISION);
+		result = calcService.calculate(AppConstants.DIVISION, b, a);
 		assertEquals(new Double(expected_result), new Double(result));
+	}
+	
+	
+	@Test
+	public void testExpression() {
+		result = calcService.calculate(Utils.stringToObject("3*4-2*5"));
+		assertEquals(2, new Double(result));
+		result = calcService.calculate(Utils.stringToObject("3*(4-2)*5"));
+		assertEquals(30, new Double(result));
+		
+		
 	}
 }
