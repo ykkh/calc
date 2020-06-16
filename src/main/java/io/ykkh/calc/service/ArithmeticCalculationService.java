@@ -31,16 +31,11 @@ public class ArithmeticCalculationService implements CalculationServiceFactory {
 			List<ExpressionSegment> driverlocationsList = mapper.convertValue(expressionSegments,
 					new TypeReference<List<ExpressionSegment>>() {
 					});
-
 		
 		for (ExpressionSegment expr : driverlocationsList) {
 			if (Utils.isNumeric(expr.getNum())) {
-				Double d =  Double.parseDouble(expr.getNum().toString());
-				try {
-					numbers.push(d);
-				} catch (ClassCastException e) {
-					numbers.push(Double.parseDouble((String) expr.getNum()));
-				}
+				numbers.push(Double.parseDouble(expr.getNum().toString()));
+				
 			} else {
 				@SuppressWarnings("unchecked")
 				double d = calculate((List<ExpressionSegment>) expr.getNum()); // recursive method call for Parentheses
